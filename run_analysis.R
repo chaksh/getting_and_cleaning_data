@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 library(dplyr)
 
+=======
+>>>>>>> 1d442b3a7945da4c97999c16153ae358520464f8
 #Extracting test data
 test<-read.table("./UCI HAR Dataset/test/X_test.txt",sep="")
 test_subject<-read.table("./UCI HAR Dataset/test/subject_test.txt",sep="")
@@ -26,7 +29,10 @@ colnames(data)<-names
 #Extracting mean and standard deviation for each measurement
 data<-as.data.frame(data)
 keep<-grep("mean|std",colnames(data))
+<<<<<<< HEAD
 keep<-c(1,2,keep,ncol(data))
+=======
+>>>>>>> 1d442b3a7945da4c97999c16153ae358520464f8
 data<-data[,keep]
 
 #Labeling the data-set with descriptive variable names
@@ -47,6 +53,7 @@ data$Activity<-gsub(4,"Sitting",data$Activity)
 data$Activity<-gsub(5,"Standing",data$Activity)
 data$Activity<-gsub(6,"Laying",data$Activity)
 
+<<<<<<< HEAD
 #To create tidy data-set with with the average of each variable 
 #for each activity and each subject
 tidy_data<-summarise_at(data,vars(1:(ncol(data)-3)),mean)
@@ -54,3 +61,5 @@ tidy_data<-summarise_at(data,vars(1:(ncol(data)-3)),mean)
 #Better alternative to get tidy_data data-set
 tidy_data1<-melt(data,id=c("Subject","Activity","Set"))
 tidy_data1<-dcast(tidy_data1,Subject+Activity+Set~variable,fun.aggregate = mean)
+=======
+>>>>>>> 1d442b3a7945da4c97999c16153ae358520464f8
