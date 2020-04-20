@@ -1,3 +1,5 @@
+library(dplyr)
+
 #Extracting test data
 test<-read.table("./UCI HAR Dataset/test/X_test.txt",sep="")
 test_subject<-read.table("./UCI HAR Dataset/test/subject_test.txt",sep="")
@@ -44,3 +46,11 @@ data$Activity<-gsub(3,"Walking Downstairs",data$Activity)
 data$Activity<-gsub(4,"Sitting",data$Activity)
 data$Activity<-gsub(5,"Standing",data$Activity)
 data$Activity<-gsub(6,"Laying",data$Activity)
+
+#To create tidy data-set with with the average of each variable 
+#for each activity and each subject
+tidy_data<-summarise_at(data,vars(1:(ncol(data)-3)),mean)
+
+#Better alternative to get tidy_data data-set
+tidy_data1<-melt(data,id=c("Subject","Activity","Set"))
+tidy_data1<-dcast(tidy_data1,Subject+Activity+Set~variable,fun.aggregate = mean)
